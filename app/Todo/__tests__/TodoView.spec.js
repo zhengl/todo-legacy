@@ -30,7 +30,7 @@ describe('Todo', function() {
   });
 
   it('listens to todo', function() {
-    expect(view.listenTo).toBeCalledWith(todo, 'destroy', view.remove);
+    expect(view.listenTo).toBeCalledWith(todo, 'destroy', view.handleDestroy);
     expect(view.listenTo).toBeCalledWith(todo, 'change', view.render);
   });
 
