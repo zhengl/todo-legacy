@@ -1,5 +1,7 @@
+var webpack = require('webpack');
+
 module.exports = {
-	entry: './app/index.js',
+	entry: ['./app/index.js'],
 	output: {
 		path: __dirname + '/public',
 		filename: 'app.js'
@@ -10,5 +12,8 @@ module.exports = {
 			{ test: /\.css$/, loader: 'style!css'},
 			{ test: /\.svg$/, loader: 'raw'},
 		]
-	}
+	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin()
+	]
 };
