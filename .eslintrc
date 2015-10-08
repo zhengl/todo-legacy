@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb/legacy",
+  "env": {
+    "jest": true,
+    "jquery": true
+  },
+  "rules": {
+    "func-names": 0,
+    "id-length": [2, "exceptions": ["$", "_"]],
+    "vars-on-top": 0
+  }
+}

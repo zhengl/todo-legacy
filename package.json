@@ -1,0 +1,51 @@
+{
+  "name": "todo-bby",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "posttest": "npm run lint",
+    "lint": "eslint ./app",
+    "watch": "watch \"npm run test\" ./app",
+    "start": "babel-node ./server.js",
+    "build": "webpack -p"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.19.0",
+    "eslint": "^1.6.0",
+    "eslint-config-airbnb": "^0.1.0",
+    "jade": "^1.11.0",
+    "jade-loader": "^0.7.1",
+    "jest-cli": "^0.5.10",
+    "jquery": "^2.1.4",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.12.4",
+    "watch": "^0.16.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0"
+  },
+  "dependencies": {
+    "babel": "^5.8.23",
+    "backbone": "^1.2.3",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "material-design-icons": "^2.0.0",
+    "node-uuid": "^1.4.3"
+  },
+  "jest": {
+    "rootDir": "",
+    "scriptPreprocessor": "build/preprocessor",
+    "unmockedModulePathPatterns": [
+      "backbone",
+      "underscore",
+      "jquery",
+      "jade"
+    ],
+    "testPathDirs": [
+      "<rootDir>/app"
+    ]
+  }
+}
