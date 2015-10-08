@@ -4,10 +4,15 @@ var template = require('./TodoView.jade');
 require('./styles.css');
 
 var TodoView = Backbone.View.extend({
+  tagName: 'li',
+
+  className: 'todo',
+
   events: {
     'dblclick': 'handleToggleMode',
     'click .todo__remove': 'handleRemove',
     'submit .todo__edit': 'handleSubmit',
+    'click .todo__backdrop': 'handleResume',
   },
 
   initialize: function() {
@@ -16,7 +21,7 @@ var TodoView = Backbone.View.extend({
   },
 
   handleToggleMode: function() {
-    this.$('.todo__edit__input').val(this.model.get('content'));
+    this.$input.val(this.model.get('content'));
     this.$el.addClass('todo_edit');
   },
 
@@ -26,15 +31,24 @@ var TodoView = Backbone.View.extend({
 
   handleSubmit: function(event) {
     event.preventDefault();
-    var newContent = this.$('.todo__edit__input').val();
+    var newContent = this.$input.val();
     this.model.save({
       content: newContent,
     });
+    this.resume();
+  },
+
+  handleResume: function() {
+    this.resume();
+  },
+
+  resume: function() {
     this.$el.removeClass('todo_edit');
   },
 
   render: function() {
     this.$el.html(template(this.model.attributes));
+    this.$input = this.$('.todo__edit__input');
     return this;
   },
 });

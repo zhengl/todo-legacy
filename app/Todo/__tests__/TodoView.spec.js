@@ -56,4 +56,12 @@ describe('Todo', function() {
     expect(todo.save).toBeCalled();
     expect(view.$el.hasClass('todo_edit')).toBeFalsy();
   });
+
+  it('resumes content on clicking backdrop', function() {
+    var newContent = 'new content';
+    view.$el.dblclick();
+    view.$('.todo__edit__input').val(newContent);
+    view.$('.todo__backdrop').click();
+    expect(view.$el.hasClass('todo_edit')).toBeFalsy();
+  });
 });
