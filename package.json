@@ -1,14 +1,15 @@
 {
-  "name": "todo-bby",
+  "name": "todo-legacy",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "posttest": "npm run lint",
-    "lint": "eslint ./app",
+    "lint": "eslint ./app ./server.js",
     "watch": "watch \"npm run test\" ./app",
     "start": "babel-node ./server.js",
+    "prebuild": "npm test",
     "build": "webpack -p"
   },
   "author": "",

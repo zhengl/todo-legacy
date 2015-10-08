@@ -1,11 +1,11 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import webpack from 'webpack';
-import webpackConfig from './webpack.config';
-import WebpackDevServer from 'webpack-dev-server';
-import uuid from 'node-uuid';
+var express = require('express');
+var bodyParser = require('body-parser');
+var webpack = require('webpack');
+var webpackConfig = require('./webpack.config');
+var WebpackDevServer = require('webpack-dev-server');
+var uuid = require('node-uuid');
 
-const database = {
+var database = {
   todos: [
     {
       id: uuid.v1(),
@@ -18,13 +18,13 @@ const database = {
   ],
 };
 
-const REST_PORT = 3000;
-const APP_PORT = 8080;
+var SERVER_PORT = 3000;
+var APP_PORT = 8080;
 
-webpackConfig.entry.unshift(`webpack-dev-server/client?http://localhost:${APP_PORT}`, 'webpack/hot/dev-server');
-const compiler = webpack(webpackConfig);
+webpackConfig.entry.unshift('webpack-dev-server/client?http://localhost:' + APP_PORT, 'webpack/hot/dev-server');
+var compiler = webpack(webpackConfig);
 
-const app = new WebpackDevServer(compiler, {
+var app = new WebpackDevServer(compiler, {
   contentBase: 'public',
   hot: true,
   inline: true,
@@ -33,30 +33,30 @@ const app = new WebpackDevServer(compiler, {
 });
 
 
-app.listen(APP_PORT, () => {
+app.listen(APP_PORT, function() {
 /* eslint-disable no-console */
-  console.log(`App is now running on http://localhost:${APP_PORT}`);
+  console.log('App is now running on http://localhost:' + APP_PORT);
 });
 
-const server = express();
+var server = express();
 
 server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(bodyParser.json());
 
-server.use((req, res, next) => {
+server.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
 });
 
-server.get('/todos', (req, res) => {
+server.get('/todos', function(req, res) {
   res.json(database.todos);
 });
 
-server.post('/todos', (req, res) => {
-  const newTodo = {
+server.post('/todos', function(req, res) {
+  var newTodo = {
     id: uuid.v1(),
     content: req.body.content,
   };
@@ -64,18 +64,18 @@ server.post('/todos', (req, res) => {
   res.json(newTodo);
 });
 
-server.delete('/todos/:id', (req, res) => {
-  database.todos = database.todos.filter( todo => todo.id !== req.params.id );
+server.delete('/todos/:id', function(req, res) {
+  database.todos = database.todos.filter(function(todo) { return todo.id !== req.params.id; });
   res.json(database.todos);
 });
 
-server.put('/todos/:id', (req, res) => {
-  const targetTodo = database.todos.find(todo => todo.id === req.params.id);
+server.put('/todos/:id', function(req, res) {
+  var targetTodo = database.todos.find(function(todo) { return todo.id === req.params.id; });
   targetTodo.content = req.body.content;
   res.json(targetTodo);
 });
 
-server.listen(REST_PORT, () => {
+server.listen(SERVER_PORT, function() {
 /* eslint-disable no-console */
-  console.log(`Restful Server is now running on http://localhost:${REST_PORT}`);
+  console.log('Server is now running on http://localhost:' + SERVER_PORT);
 });
