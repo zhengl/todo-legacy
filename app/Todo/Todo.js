@@ -1,8 +1,9 @@
 var Backbone = require('backbone');
+var constants = require('../constants');
 
 var Todo = Backbone.Model.extend({
   idAttribute: 'id',
-  urlRoot: 'http://localhost:3000/todos',
+  urlRoot: constants.BASE_URL + '/todos',
 });
 
 module.exports = Todo;
