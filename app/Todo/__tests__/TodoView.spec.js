@@ -41,13 +41,6 @@ describe('Todo', function() {
     expect(view.$('.todo__edit__input').val()).toBe(data.content);
   });
 
-  it('shows edit input on double click', function() {
-    expect(view.$el.hasClass('todo_edit')).toBeFalsy();
-    view.$el.dblclick();
-    expect(view.$el.hasClass('todo_edit')).toBeTruthy();
-    expect(view.$('.todo__edit__input').val()).toBe(data.content);
-  });
-
   it('changes content on submit and disable edit mode', function() {
     var newContent = 'new content';
     view.$el.dblclick();

@@ -12,7 +12,7 @@ var TodosView = Backbone.View.extend({
   initialize: function() {
     this.listenTo(this.collection, 'reset', this.render);
     this.listenTo(this.collection, 'add', this.addTodo);
-    this.collection.fetch();
+    this.collection.fetch({ reset: true });
   },
 
   addTodo: function(todo) {

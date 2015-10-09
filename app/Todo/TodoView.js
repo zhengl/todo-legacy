@@ -30,7 +30,7 @@ var TodoView = Backbone.View.extend({
 
   handleToggleMode: function() {
     this.$input.val(this.model.get('content'));
-    this.$el.addClass('todo_edit');
+    this.$el.addClass(EDIT_MODE_CLASS);
   },
 
   handleRemove: function() {
@@ -53,7 +53,7 @@ var TodoView = Backbone.View.extend({
   handleDestroy: function() {
     var self = this;
     var $el = this.$el;
-    $el.addClass('todo-leave');
+    $el.addClass(LEAVE_CLASS);
     $el.one(ANIMATION_END_EVENT, function() {
       self.remove();
     });
@@ -70,7 +70,7 @@ var TodoView = Backbone.View.extend({
     var $el = this.$el;
     $el.html(template(this.model.attributes));
     this.$input = this.$('.todo__edit__input');
-    $el.addClass('todo-enter');
+    $el.addClass(ENTER_CLASS);
     $el.one(ANIMATION_END_EVENT, function() {
       $el.removeClass(ENTER_CLASS + ' ' + ENTER_ACTIVE_CLASS);
     });

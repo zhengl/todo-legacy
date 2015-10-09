@@ -37,9 +37,9 @@ describe('TodosView', function() {
   });
 
   it('adds one todo', function() {
+    var view = new TodosView({ collection: todos }).render();
     var newData = { content: 'test content' };
     var todo = new Todo(newData);
-    var view = new TodosView({ collection: todos }).render();
     view.addTodo(todo);
     expect(view.el.textContent).toMatch(newData.content);
   });

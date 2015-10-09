@@ -12,7 +12,7 @@ describe('App', function() {
     expect(view.$('.todos').length).toBeTruthy();
   });
 
-  it('calls Todo.create on form submit', function() {
+  it('calls Todo.create and toggles mode on form submit', function() {
     expect(view.todos).toBeDefined();
     view.todos.create = jest.genMockFn();
     view.toggleMode = jest.genMockFn();
@@ -31,17 +31,16 @@ describe('App', function() {
   });
 
   it('toggles mode on clicking add-todo button', function() {
-    expect(view.$('.main__new-todo-container_open').length > 0).toBeFalsy();
-    expect(view.$('.main__add-todo_rotated').length > 0).toBeFalsy();
+    function expectEditModeToBe(condition) {
+      expect(view.$('.main__new-todo-container_open').length > 0).toBe(condition);
+      expect(view.$('.main__add-todo_rotated').length > 0).toBe(condition);
+    }
 
-    view.$('.main__add-todo').click();
-
-    expect(view.$('.main__new-todo-container_open').length > 0).toBeTruthy();
-    expect(view.$('.main__add-todo_rotated').length > 0).toBeTruthy();
-
-    view.$('.main__add-todo').click();
-
-    expect(view.$('.main__new-todo-container_open').length > 0).toBeFalsy();
-    expect(view.$('.main__add-todo_rotated').length > 0).toBeFalsy();
+    var addTodButton = view.$('.main__add-todo');
+    expectEditModeToBe(false);
+    addTodButton.click();
+    expectEditModeToBe(true);
+    addTodButton.click();
+    expectEditModeToBe(false);
   });
 });
