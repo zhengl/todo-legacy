@@ -30,6 +30,9 @@ var app = new WebpackDevServer(compiler, {
   inline: true,
   historyApiFallback: true,
   stats: {colors: true},
+  proxy: {
+    '/todos*': 'http://localhost:' + SERVER_PORT,
+  },
 });
 
 
@@ -43,13 +46,6 @@ var server = express();
 server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(bodyParser.json());
-
-server.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  next();
-});
 
 server.get('/todos', function(req, res) {
   res.json(database.todos);

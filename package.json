@@ -8,7 +8,7 @@
     "posttest": "npm run lint",
     "lint": "eslint ./app ./server.js",
     "watch": "watch \"npm run test\" ./app",
-    "start": "babel-node ./server.js",
+    "start": "node ./server.js",
     "prebuild": "npm test",
     "build": "webpack -p"
   },
